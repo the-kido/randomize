@@ -1,0 +1,40 @@
+:root {
+    --border-color: rgb(43.157834017734544, 167.52217416568587, 102.91849103977503);
+    --background-color: hsl(148, 100%, 50%);
+}
+
+#text {
+    font-size: 5em;
+    color: var(--border-color);
+}
+
+body {
+    font-family: sans-serif;
+    background: var(--background-color);
+}
+
+button {
+    padding: 5% 15%;
+    font-size: 3em;
+    border-radius: 8px;
+    background: var(--background-color);
+    
+    border: 0.1em solid var(--border-color);
+    color: var(--border-color);
+    transition-duration: 0.4s;
+}
+
+button:hover  {
+    background-color: var(--border-color); /* Green */
+    color: white;
+}
+
+.center {
+    margin: auto;
+    width: 70%;
+    /* height: 30%; */
+    padding: 4em;
+    text-align: center;
+    border: 0.25em solid var(--border-color);
+    border-radius: 8px;
+}
