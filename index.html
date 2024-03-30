@@ -1,0 +1,58 @@
+<style id="style">
+    .center {
+        border: 3px solid green;
+    }
+
+</style>
+
+<style>
+    button {
+        padding: 15px 32px;
+
+        font-size: 16px;
+    }
+    
+    .center {
+        margin: auto;
+        width: 50%;
+        padding: 10px;
+        text-align: center;
+    }
+
+</style>
+
+<body>
+    <div class="center">
+
+        <button onclick="onButtonPressed()">
+            Randomize direction!
+        </button>
+        
+        <h1 id = "text">
+        </h1>
+
+        <script>
+            function getInner(color) {
+                return `
+                    .center {
+                        border: 3px solid ` + color + `;
+                    }
+                    `
+            }
+
+            var text = document.getElementById("text")
+            var style = document.getElementById("style")
+            var flip = false;
+
+            function onButtonPressed() {
+                style.innerHTML = getInner(flip ? "green" : "blue");
+                flip = !flip;
+
+                var rand = Math.random()
+                text.innerHTML = rand <= 0.5 ? "←" : "→"
+            }
+            
+        </script>
+
+    </div>
+</body>
