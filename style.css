@@ -1,40 +1,81 @@
 :root {
-    --border-color: rgb(43.157834017734544, 167.52217416568587, 102.91849103977503);
-    --background-color: hsl(148, 100%, 50%);
+    --border-color: rgb(255, 255, 255);
+    --background-color: hsl(0, 0%, 100%);
+    --direction: 1;
+    --previous-direction: 1;
+    --transition-time: 1.2s
 }
 
 #text {
-    font-size: 5em;
+    font-size: 10em;
     color: var(--border-color);
+    margin: 0;
+    scale: var(--direction) 1;
+}
+
+#text.wobble {
+    animation: arrowWobble var(--transition-time) 1;
+}
+
+@keyframes arrowWobble {
+    0% {
+        scale: calc(var(--previous-direction)) 1;
+    }
+    25% {
+        scale: var(--direction) 1;
+        translate: 0;
+    }
+    45% {
+        translate: calc(var(--direction) * 30px);
+    }
+    50% {
+        translate: calc(var(--direction) * -30px);
+    }
+    70% {
+        translate: calc(var(--direction) * 10px);
+    }
+    85% {
+        translate: calc(var(--direction) * -5px);
+    }
 }
 
 body {
-    font-family: sans-serif;
-    background: var(--background-color);
+    background-color: var(--background-color);
 }
 
 button {
-    padding: 5% 15%;
-    font-size: 3em;
-    border-radius: 8px;
-    background: var(--background-color);
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+    padding: 10% 10%;
     
-    border: 0.1em solid var(--border-color);
+    font-size: 4em;
+    border-radius: 1em;
+    background-color: var(--background-color);
+
+    
+    border: 0.13em solid var(--border-color);
     color: var(--border-color);
-    transition-duration: 0.4s;
 }
 
 button:hover  {
-    background-color: var(--border-color); /* Green */
+    background-color: var(--border-color);
     color: white;
 }
 
 .center {
     margin: auto;
     width: 70%;
-    /* height: 30%; */
-    padding: 4em;
+    
+    padding-left: 4em;
+    padding-right: 4em;
+    padding-top: 4em;
+
     text-align: center;
-    border: 0.25em solid var(--border-color);
-    border-radius: 8px;
+    border: 0.5em solid var(--border-color);
+    border-radius: 4em;
+}
+
+.smooth {
+    transition-duration: var(--transition-time);
+    transition-property: background-color, border-color, color;
 }
