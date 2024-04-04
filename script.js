@@ -18,6 +18,11 @@ const animationTime = parseFloat(getComputedStyle(root).getPropertyValue(propert
 // Invoke right as website is opened.
 onButtonPressed();
 
+// Attach event that listens to space keys as well
+document.addEventListener('keydown', (event) => {
+    if(event.code == "Space") onButtonPressed();
+});
+
 function onButtonPressed() {
     // Debounce
     if (!inputAcceptable()) return;
