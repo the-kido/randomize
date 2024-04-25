@@ -87,12 +87,7 @@ function flipArrow() {
         getComputedStyle(root).getPropertyValue(properties.direction)
     );
     // Update new direction for CSS animation to use.
-    
-    var direction = Math.random() <= 0.5 ? 1 : -1;
-    if (rigged) {
-        direction = isRight ? -1 : 1;
-    }
-    root.style.setProperty(properties.direction, direction);
+    root.style.setProperty(properties.direction, Math.random() <= 0.5 ? 1 : -1);
 
     // Play the wobble animation and delete it after it is done..
     text.classList.add("wobble")
@@ -148,43 +143,3 @@ function rgb2hsv (r, g, b) {
         v: percentRoundFn(value * 100)
     };
 }
-
-
-var pageX = 0;
-document.onmousemove = handleMouseMove;
-function handleMouseMove(event) {
-    event = event || window.event; // IE-ism
-    pageX = event.pageX;
-}
-
-var isRight = false;
-var half = root.clientWidth / 2;
-var rigged = 0; // declare the variable that tracks the state
-
-function unrig() {
-    text.style.paddingTop = "0px";
-    text.style.paddingRight = "0px";
-    text.style.paddingLeft = "0px";
-}
-
-function clickHandler(){ // declare a function that updates the state
-    if (isOnButton) return;
-    
-    isRight = pageX >= half;
-    rigged = !rigged;
-    
-    if (rigged) {
-        text.style.paddingTop = "10px";
-        if (isRight) text.style.paddingLeft = "10px";
-        else text.style.paddingRight = "10px";
-    } 
-    else {
-        unrig();
-    }
-}
-
-var isOnButton = false; 
-button.addEventListener("mouseenter", function(  ) {isOnButton=true;});
-button.addEventListener("mouseout", function(  ) {isOnButton=false;});
-
-root.addEventListener('click', clickHandler); // associate the function above with the click event
