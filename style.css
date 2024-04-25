@@ -3,7 +3,7 @@
     --background-color: hsl(0, 0%, 100%);
     --direction: 1;
     --previous-direction: 1;
-    --transition-time: 1.2s
+    --transition-time: 1s
 }
 
 #text {
@@ -41,9 +41,23 @@
 
 body {
     background-color: var(--background-color);
+    margin: 0; height: 100%; overflow: hidden;
 }
 
-button {
+.secret, .secret:active, .secret:hover {
+    background-color: var(--background-color);
+    border-color: var(--background-color);
+    color: var(--background-color);
+    position : absolute; 
+    width:100px; 
+    height:100px;
+    padding: 10px; 
+    top:0; 
+    left: calc(100% - 100px);
+    overflow: hidden;
+}
+
+button {    
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 
     padding: 10% 10%;

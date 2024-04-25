@@ -87,7 +87,7 @@ function flipArrow() {
         getComputedStyle(root).getPropertyValue(properties.direction)
     );
     // Update new direction for CSS animation to use.
-    root.style.setProperty(properties.direction, Math.random() <= 0.5 ? 1 : -1);
+    root.style.setProperty(properties.direction, getInstruction());
 
     // Play the wobble animation and delete it after it is done..
     text.classList.add("wobble")
@@ -96,11 +96,27 @@ function flipArrow() {
         animationTime
     );
 }
+function getInstruction() {
+    var newDirection = 0;
+    if (rigged) {
+        if (instructionIndex >= rigs[chosenRigIndex].length) {
+            updateRiggedIndex();
+        }
+        console.log("index rn", instructionIndex);
+        console.log("returning",rigs[chosenRigIndex][instructionIndex]);
+        newDirection = rigs[chosenRigIndex][instructionIndex]
+        instructionIndex++;
+    } else {
+        newDirection = Math.random() <= 0.5 ? 1 : -1;
+    }
+    return newDirection;
+}
 
 function updateTMP() {
     mainDiv.style.marginTop = 0;
-    var height = parseInt((document.body.scrollHeight - mainDiv.offsetHeight) / 2);
+    var height = parseInt(((document.body.scrollHeight) - mainDiv.offsetHeight) / 2);
     mainDiv.style.marginTop = height.toString() + "px";
+    
 }
 
 const myObserver = new ResizeObserver(updateTMP).observe(mainDiv);
@@ -143,3 +159,66 @@ function rgb2hsv (r, g, b) {
         v: percentRoundFn(value * 100)
     };
 }
+
+
+var instructionIndex = 0;
+var chosenRigIndex = 0;
+
+// 1 = left. -1 = right
+var rigs = [
+    // Center paths
+    [-1,1, -1,1,-1],
+    [-1,1, -1, 1, 1, 1],
+    // left paths
+    [1,1,-1,-1],
+    [-1,-1,-1,1,-1],
+    [-1,-1,-1,1,1],
+]
+
+var rigged = false; // declare the variable that tracks the state
+function updateRiggedIndex() {
+    instructionIndex = 0;
+    chosenRigIndex = Math.floor(Math.random() * rigs.length);
+    console.log("NOW RIGGING FOR ", chosenRigIndex)
+    updateBorderColor(0,0,0);
+    updateBackgroundColor(100, 100, 100); // Make it obvious the next game has started
+}
+
+function onSecretPressed(){ // declare a function that updates the state
+    rigged = !rigged;
+    updateRiggedIndex();
+
+    if (rigged) {
+        console.log(chosenRigIndex + " INDEX OF RIGGING");
+    } else {
+        console.log(" No longer rigging");
+    }
+
+    if (rigged) {
+        button.style.marginTop = "10px";
+    } else {
+        button.style.marginTop = "0px";
+    }
+    /*
+    if (rigged) {
+        text.style.paddingTop = "10px";
+        if (isNextInstructionRight) text.style.paddingLeft = "10px";
+        else text.style.paddingRight = "10px";
+    } 
+    else {
+        text.style.paddingTop = "0px";
+        text.style.paddingRight = "0px";
+        text.style.paddingLeft = "0px";
+    }
+    */
+}
+
+var secret = document.getElementById("secret");
+window.onload = function () {
+    secret = document.getElementById("secret");
+    secret.innerHTML = ` 
+    <button class="smooth secret" onclick="onSecretPressed()"> 
+        secret 
+    </button>
+    `
+};
